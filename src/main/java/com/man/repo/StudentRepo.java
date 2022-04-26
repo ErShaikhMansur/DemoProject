@@ -15,4 +15,4 @@ public interface StudentRepo extends JpaRepository<StudentDto, Integer>  {
 	public StudentDto findByEmail(@Param ("email") String  email);
 	
 }
- 
+  
