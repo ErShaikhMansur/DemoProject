@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.man.Page.StudentPage;
 import com.man.Page.StudentSearchCriteria;
 import com.man.dto.StudentDto;
+import com.man.service.EmailService;
 import com.man.service.StudentService;
+import com.man.utility.EmailConstant;
 
 @RestController
 public class StudentCtl {
@@ -23,9 +25,14 @@ public class StudentCtl {
 	
 	@Autowired
 	private StudentService service;
+
+	@Autowired
+	private EmailService emailService;
 	
 	@PostMapping(value="/save")
 	public ResponseEntity<StudentDto> save(@RequestBody StudentDto dto){
+		emailService.sendSimpleMessage(dto.getEmail(),EmailConstant.Subject ,
+				EmailConstant.Message);
 		return new ResponseEntity<StudentDto>(service.addStudent(dto),HttpStatus.OK);
 	}
 	  
